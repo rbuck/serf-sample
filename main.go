@@ -333,13 +333,14 @@ func (s *Server) leave() error {
 }
 
 func (s *Server) shutdown() error {
-	s.logger.Println("[INFO] shutting down server")
 	s.shutdownLock.Lock()
 	defer s.shutdownLock.Unlock()
 
 	if s.isShutdown {
 		return nil
 	}
+
+	s.logger.Println("[INFO] shutting down server")
 
 	if s.serfLan != nil {
 		s.logger.Println("[INFO] agent: requesting serf shutdown")
